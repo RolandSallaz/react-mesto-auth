@@ -16,7 +16,7 @@ npm start
 
 ## Ссылка на gh-pages
 
-[Ссылка](https://rolandsallaz.github.io/mesto-react/)
+[Ссылка](https://rolandsallaz.github.io/react-mesto-auth/)
 
 ## Статус и планы
 
