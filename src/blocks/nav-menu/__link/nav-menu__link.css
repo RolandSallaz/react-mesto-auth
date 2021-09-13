@@ -1,0 +1,10 @@
+.nav-menu__link {
+  margin: 0 0 0 24px;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration: none;
+  color: #ffffff;
+}
+.nav-menu__link:hover {
+  opacity: 0.6;
+}

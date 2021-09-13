@@ -1,0 +1,7 @@
+.auth__description_link {
+  color: white;
+  text-decoration: none;
+}
+.auth__description_link:hover {
+  opacity: 0.6;
+}

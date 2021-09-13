@@ -1,0 +1,11 @@
+.form-auth__submit-button {
+  margin: 216px 0 0;
+  width: 100%;
+  height: 50px;
+  background: #ffffff;
+  border-radius: 2px;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  color: #000000;
+}
