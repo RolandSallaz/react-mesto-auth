@@ -1,6 +1,6 @@
 # Mesto React
 
-Место-Реакт это копия проекта Место, переведенного на фреймворк React
+mesto-react-auth это копия проекта mesto-react, с добавленной авторизацией
 
 ## функциональность
 
@@ -16,7 +16,7 @@ npm start
 
 ## Ссылка на gh-pages
 
-[Ссылка](https://rolandsallaz.github.io/mesto-react/)
+[Ссылка](https://rolandsallaz.github.io/react-mesto-auth/)
 
 ## Статус и планы
 

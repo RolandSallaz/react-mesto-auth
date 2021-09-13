@@ -6,6 +6,7 @@
 /* logo */
 
 @import url(./blocks/logo/logo.css);
+@import url(./blocks/logo/_place/logo_place_header.css);
 
 /* content */
 
@@ -22,6 +23,12 @@
 /* header */
 
 @import url(./blocks/header/header.css);
+
+/* nav menu */
+
+@import url(./blocks/nav-menu/nav-menu.css);
+@import url(./blocks/nav-menu/__user-email/nav-menu__user-email.css);
+@import url(./blocks/nav-menu/__link/nav-menu__link.css);
 
 /* profile */
 
@@ -60,6 +67,14 @@
 @import url(./blocks/popup/__close-button/popup__close-button.css);
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__image-name/popup__image-name.css);
+@import url(./blocks/popup/__image-status/popup__image-status.css);
+@import url(./blocks/popup/__description/popup__description.css);
+
+/* auth */
+
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__description/auth__description.css);
+@import url(./blocks/auth/__description/_link/auth__description_link.css);
 
 /* form */
 
@@ -72,6 +87,12 @@
 @import url(./blocks/form/__error/form__error.css);
 @import url(./blocks/form/__error/_show/form__error_show.css);
 @import url(./blocks/form/__save-button/_loading/form__save-button_loading.css);
+
+/* form auth */
+
+@import url(./blocks/form-auth/__heading/form-auth__heading.css);
+@import url(./blocks/form-auth/__input/form-auth__input.css);
+@import url(./blocks/form-auth/__submit-button/form-auth__submit-button.css);
 
 /* footer */
 

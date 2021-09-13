@@ -1,4 +1,4 @@
-import { apiUrl, apiAuthKey } from "./constants";
+import { apiUrl } from "./constants";
 class Api {
     constructor(config) {
         this._url = config.url;
@@ -10,13 +10,16 @@ class Api {
     }
     getUserInfo() {
         return fetch(`${this._url}users/me`, {
+            credentials: 'include',
             headers: this._headers
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        })
+            .then(res => {
+                return this._checkResponse(res);
+            })
     }
     setUserInfo(newName, newInfo) {
         return fetch(`${this._url}users/me`, {
+            credentials: 'include',
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({ name: newName, about: newInfo })
@@ -26,6 +29,7 @@ class Api {
     }
     getCards() {
         return fetch(`${this._url}cards`, {
+            credentials: 'include',
             headers: this._headers
         }).then(res => {
             return this._checkResponse(res);
@@ -34,6 +38,7 @@ class Api {
     sendCard(name, link) {
         return fetch(`${this._url}cards`, {
             method: "POST",
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({ name, link })
         }).then(res => {
@@ -42,6 +47,7 @@ class Api {
     }
     deleteCard(id) {
         return fetch(`${this._url}cards/${id}`, {
+            credentials: 'include',
             method: "DELETE",
             headers: this._headers,
         }).then(res => {
@@ -49,7 +55,8 @@ class Api {
         });
     }
     changeLikeCardStatus(id, prop) {
-        return fetch(`${this._url}cards/likes/${id}`, {
+        return fetch(`${this._url}cards/${id}/likes`, {
+            credentials: 'include',
             method: prop,
             headers: this._headers,
         }).then(res => {
@@ -59,6 +66,7 @@ class Api {
 
     changerAvatar(avatar) {
         return fetch(`${this._url}users/me/avatar`, {
+            credentials: 'include',
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({ avatar }),
@@ -71,8 +79,7 @@ class Api {
 const api = new Api({
     url: apiUrl,
     headers: {
-        authorization: apiAuthKey,
-        "Content-type": "application/json"
+        "Content-Type": "application/json"
     }
 });
 export default api;
