@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch, useHistory } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 import { useState, useEffect } from "react";
 import api from "../../utils/Api";
 import apiAuth from "../../utils/ApiAuth";
@@ -31,9 +31,11 @@ function App() {
   const [cardToDelete, setCardToDelete] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [authState, setAuthState] = useState(null);
+  const [authMessage, setAuthMessage] = useState('');
   const [cards, setCards] = useState([]);
 
   const history = useHistory();
+
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
   };
@@ -107,10 +109,14 @@ function App() {
     apiAuth
       .newUser({ email, pass })
       .then(() => {
-        setAuthState(true)
+        setAuthState(true);
+        setAuthMessage('Вы успешно зарегистрировались!');
+        history.push('/sign-in');
       })
       .catch(() => {
         setAuthState(false)
+        setAuthMessage(`Что-то пошло не так!
+        Попробуйте ещё раз.`);
       })
       .finally(() => {
         setIsInfoPopupOpen(true)
@@ -124,14 +130,15 @@ function App() {
           .checkToken(res.token).then(res => {
             setLoggedIn(true);
             history.push('/');
-            setUserEmail(res.data.email);
+            setUserEmail(email);
           })
       })
-      .catch(() => { setIsInfoPopupOpen(true); setAuthState(false) });
+      .catch(() => { setIsInfoPopupOpen(true); setAuthState(false); setAuthMessage('Неверный логин или пароль') });
   }
   const handleLogOut = () => {
     localStorage.setItem('jwt', '');
     setLoggedIn(false);
+    history.push('/sign-in');
   }
   const closeAllPopups = () => {
     setIsAddPlacePopupOpen(false);
@@ -141,6 +148,7 @@ function App() {
     setIsInfoPopupOpen(false);
     setSelectedCard(null);
     setAuthState(null);
+    setAuthMessage('');
   };
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -153,10 +161,12 @@ function App() {
     }
   }, []);
   useEffect(() => {
-    api
-      .getUserInfo().then(res => { setCurrentUser(res); })
-      .catch(err => console.log(`Ошибка при загрузке пользователя err ${err}`));
-  }, []);
+    if (loggedIn) {
+      api
+        .getUserInfo().then(res => { setCurrentUser(res); })
+        .catch(err => console.log(`Ошибка при загрузке пользователя err ${err}`));
+    }
+  }, [loggedIn]);
   useEffect(() => {
     api
       .getCards().then(cardList => { setCards(cardList); })
@@ -187,14 +197,13 @@ function App() {
             <Register onSubmit={handleRegistration} />
           </Route>
           <Footer />
-          <InfoTooltip isOpen={isInfoPopupOpen} onClose={closeAllPopups} state={authState} />
+          <InfoTooltip isOpen={isInfoPopupOpen} onClose={closeAllPopups} state={authState} message={authMessage} />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} onClose={closeAllPopups} loading={isLoading} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onSubmit={handleAddPlace} loading={isLoading} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} loading={isLoading} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <DeleteConfirmPopup isOpen={isDeletePopupOpen} card={cardToDelete} onClose={closeAllPopups} onSubmit={handleCardDelete} loading={isLoading} />
         </div>
-
       </Switch>
     </CurrentUserContext.Provider>
   );
