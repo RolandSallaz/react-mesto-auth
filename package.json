@@ -1,5 +1,5 @@
 {
-  "homepage": "https://rolandsallaz.github.io/mesto-react-auth",
+  "homepage": "https://rolandsallaz.mesto.nomoredomains.work",
   "name": "mesto-react",
   "version": "0.1.0",
   "private": true,
@@ -17,9 +17,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [

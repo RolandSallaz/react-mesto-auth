@@ -1,7 +1,7 @@
-
+import { apiUrl } from "./constants";
 class ApiAuth {
     constructor() {
-        this._url = "https://auth.nomoreparties.co";
+        this._url = apiUrl;
         this._headers = { "Content-Type": "application/json" };
         this._checkResponse = this._checkResponse.bind(this);
     }
@@ -36,10 +36,10 @@ class ApiAuth {
     }
     checkToken(token) {
         return fetch(`${this._url}/users/me`, {
+            credentials: 'include',
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
             },
         })
             .then(res => {
