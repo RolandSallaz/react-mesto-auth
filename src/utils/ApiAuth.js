@@ -34,18 +34,6 @@ class ApiAuth {
                 return this._checkResponse(res);
             });
     }
-    checkToken(token) {
-        return fetch(`${this._url}/users/me`, {
-            credentials: 'include',
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then(res => {
-                return this._checkResponse(res);
-            });
-    }
 
 }
 const apiAuth = new ApiAuth();

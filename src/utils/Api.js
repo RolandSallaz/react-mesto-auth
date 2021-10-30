@@ -1,4 +1,4 @@
-import { apiUrl, apiAuthKey } from "./constants";
+import { apiUrl } from "./constants";
 class Api {
     constructor(config) {
         this._url = config.url;
@@ -78,7 +78,6 @@ class Api {
 const api = new Api({
     url: apiUrl,
     headers: {
-        authorization: apiAuthKey,
         "Content-type": "application/json"
     }
 });

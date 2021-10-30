@@ -124,19 +124,15 @@ function App() {
   }
   const handleLogin = ({ email, pass }) => {
     apiAuth
-      .loginIn({ email, pass }).then(res => {
-        localStorage.setItem('jwt', res.token);
-        apiAuth
-          .checkToken(res.token).then(res => {
-            setLoggedIn(true);
-            history.push('/');
-            setUserEmail(email);
-          })
+      .loginIn({ email, pass }).then(() => {
+        setLoggedIn(true);
+        history.push('/');
+        setUserEmail(email);
       })
       .catch(() => { setIsInfoPopupOpen(true); setAuthState(false); setAuthMessage('Неверный логин или пароль') });
   }
   const handleLogOut = () => {
-    localStorage.setItem('jwt', '');
+    document.cookie = "jwt=";
     setLoggedIn(false);
     history.push('/sign-in');
   }
@@ -151,14 +147,13 @@ function App() {
     setAuthMessage('');
   };
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      apiAuth.checkToken(jwt).then(res => {
+    api.getUserInfo()
+      .then(res => {
         setLoggedIn(true);
         history.push('/');
         setUserEmail(res.data.email);
       })
-    }
+      .catch(err => console.log(err));
   }, []);
   useEffect(() => {
     if (loggedIn) {
