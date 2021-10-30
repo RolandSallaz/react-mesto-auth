@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/mesto-react-auth/static/css/main.b5f38500.chunk.css",
-    "main.js": "/mesto-react-auth/static/js/main.d23c6083.chunk.js",
-    "main.js.map": "/mesto-react-auth/static/js/main.d23c6083.chunk.js.map",
-    "runtime-main.js": "/mesto-react-auth/static/js/runtime-main.96da1244.js",
-    "runtime-main.js.map": "/mesto-react-auth/static/js/runtime-main.96da1244.js.map",
-    "static/js/2.402f4326.chunk.js": "/mesto-react-auth/static/js/2.402f4326.chunk.js",
-    "static/js/2.402f4326.chunk.js.map": "/mesto-react-auth/static/js/2.402f4326.chunk.js.map",
-    "static/js/3.f420a3c3.chunk.js": "/mesto-react-auth/static/js/3.f420a3c3.chunk.js",
-    "static/js/3.f420a3c3.chunk.js.map": "/mesto-react-auth/static/js/3.f420a3c3.chunk.js.map",
-    "index.html": "/mesto-react-auth/index.html",
-    "static/css/main.b5f38500.chunk.css.map": "/mesto-react-auth/static/css/main.b5f38500.chunk.css.map",
-    "static/js/2.402f4326.chunk.js.LICENSE.txt": "/mesto-react-auth/static/js/2.402f4326.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/mesto-react-auth/static/media/profile_edit.a086f758.svg",
-    "static/media/auth__popup_failed.df8eddf6.svg": "/mesto-react-auth/static/media/auth__popup_failed.df8eddf6.svg",
-    "static/media/auth__popup_succes.1b6082f8.svg": "/mesto-react-auth/static/media/auth__popup_succes.1b6082f8.svg",
-    "static/media/logo.03b78ada.svg": "/mesto-react-auth/static/media/logo.03b78ada.svg"
+    "main.css": "/static/css/main.142a480d.chunk.css",
+    "main.js": "/static/js/main.7f0ccaa1.chunk.js",
+    "main.js.map": "/static/js/main.7f0ccaa1.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.fc05e2af.js",
+    "runtime-main.js.map": "/static/js/runtime-main.fc05e2af.js.map",
+    "static/js/2.e88259d1.chunk.js": "/static/js/2.e88259d1.chunk.js",
+    "static/js/2.e88259d1.chunk.js.map": "/static/js/2.e88259d1.chunk.js.map",
+    "static/js/3.5ddcb754.chunk.js": "/static/js/3.5ddcb754.chunk.js",
+    "static/js/3.5ddcb754.chunk.js.map": "/static/js/3.5ddcb754.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.142a480d.chunk.css.map": "/static/css/main.142a480d.chunk.css.map",
+    "static/js/2.e88259d1.chunk.js.LICENSE.txt": "/static/js/2.e88259d1.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/profile_edit.ae1a976d.svg",
+    "static/media/auth__popup_failed.d4ce2a26.svg": "/static/media/auth__popup_failed.d4ce2a26.svg",
+    "static/media/auth__popup_succes.a9eb6caf.svg": "/static/media/auth__popup_succes.a9eb6caf.svg",
+    "static/media/logo.bbe2a6ea.svg": "/static/media/logo.bbe2a6ea.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.96da1244.js",
-    "static/js/2.402f4326.chunk.js",
-    "static/css/main.b5f38500.chunk.css",
-    "static/js/main.d23c6083.chunk.js"
+    "static/js/runtime-main.fc05e2af.js",
+    "static/js/2.e88259d1.chunk.js",
+    "static/css/main.142a480d.chunk.css",
+    "static/js/main.7f0ccaa1.chunk.js"
   ]
 }
