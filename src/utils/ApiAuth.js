@@ -9,8 +9,9 @@ class ApiAuth {
         return response.ok ? response.json() : Promise.reject(response.status);
     }
     newUser({ email, pass }) {
-        return fetch(`${this._url}/signup`, {
+        return fetch(`${this._url}signup`, {
             method: "POST",
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 "password": pass,
@@ -22,8 +23,9 @@ class ApiAuth {
             });
     }
     loginIn({ email, pass }) {
-        return fetch(`${this._url}/signin`, {
+        return fetch(`${this._url}signin`, {
             method: "POST",
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 "password": pass,
@@ -32,7 +34,8 @@ class ApiAuth {
         })
             .then(res => {
                 return this._checkResponse(res);
-            });
+            })
+
     }
 
 }

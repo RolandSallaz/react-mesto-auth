@@ -1,4 +1,5 @@
 const PopupWithForm = ({ name, title, children, isOpen, onClose, onSubmit, loading }) => {
+
   return (
     <div className={`popup ${isOpen && "popup_show"}`}>
       <div className="popup__container">

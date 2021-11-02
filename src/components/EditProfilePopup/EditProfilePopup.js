@@ -29,7 +29,7 @@ function EditProfilePopup(props) {
         <label>
             <input
                 placeholder="Имя"
-                value={name}
+                value={name || ''}
                 type="text"
                 name="userName"
                 className="form__input form__input_info_name"
@@ -46,7 +46,7 @@ function EditProfilePopup(props) {
         <label>
             <input
                 placeholder="О себе"
-                value={description}
+                value={description || ''}
                 type="text"
                 name="about"
                 className="form__input form__input_info_about"

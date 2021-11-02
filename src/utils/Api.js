@@ -12,9 +12,10 @@ class Api {
         return fetch(`${this._url}users/me`, {
             credentials: 'include',
             headers: this._headers
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        })
+            .then(res => {
+                return this._checkResponse(res);
+            })
     }
     setUserInfo(newName, newInfo) {
         return fetch(`${this._url}users/me`, {
@@ -54,7 +55,7 @@ class Api {
         });
     }
     changeLikeCardStatus(id, prop) {
-        return fetch(`${this._url}cards/likes/${id}`, {
+        return fetch(`${this._url}cards/${id}/likes`, {
             credentials: 'include',
             method: prop,
             headers: this._headers,
@@ -78,7 +79,7 @@ class Api {
 const api = new Api({
     url: apiUrl,
     headers: {
-        "Content-type": "application/json"
+        "Content-Type": "application/json"
     }
 });
 export default api;

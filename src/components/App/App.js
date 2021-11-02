@@ -78,13 +78,13 @@ function App() {
     setIsLoading(true);
     api
       .changerAvatar(avatar)
-      .then(res => { setCurrentUser(res); closeAllPopups() })
+      .then(res => { setCurrentUser(res); closeAllPopups(); console.log(currentUser) })
       .catch(err => console.log(err))
       .finally(() => { setIsLoading(false) });
   }
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(user => user._id === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked ? "DELETE" : "PUT")
       .then((newCard) => { setCards((state) => state.map((c) => c._id === card._id ? newCard : c)); })
@@ -124,12 +124,13 @@ function App() {
   }
   const handleLogin = ({ email, pass }) => {
     apiAuth
-      .loginIn({ email, pass }).then(() => {
+      .loginIn({ email, pass }).then((res) => {
+        localStorage.setItem('jwt', res.token);
         setLoggedIn(true);
         history.push('/');
         setUserEmail(email);
       })
-      .catch(() => { setIsInfoPopupOpen(true); setAuthState(false); setAuthMessage('Неверный логин или пароль') });
+      .catch((err) => { console.log(err); setIsInfoPopupOpen(true); setAuthState(false); setAuthMessage('Неверный логин или пароль') });
   }
   const handleLogOut = () => {
     document.cookie = "jwt=";
@@ -151,26 +152,29 @@ function App() {
       .then(res => {
         setLoggedIn(true);
         history.push('/');
-        setUserEmail(res.data.email);
+        setUserEmail(res.user.email);
       })
-      .catch(err => console.log(err));
-  }, []);
+      .catch((err) => {
+        if (err.statusCode === 401) {
+          history.push('/sign-in');
+        }
+
+      });
+  }, [history]);
   useEffect(() => {
     if (loggedIn) {
       api
         .getUserInfo().then(res => { setCurrentUser(res); })
         .catch(err => console.log(`Ошибка при загрузке пользователя err ${err}`));
+      api
+        .getCards().then(cardList => { setCards(cardList); })
+        .catch(err => console.log(`Ошибка при получении карточек err ${err}`));
     }
   }, [loggedIn]);
-  useEffect(() => {
-    api
-      .getCards().then(cardList => { setCards(cardList); })
-      .catch(err => console.log(`Ошибка при получении карточек err ${err}`));
-  }, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <Switch>
+    <Switch>
+      <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
           <ProtectedRoute
             userEmail={userEmail}
@@ -199,8 +203,8 @@ function App() {
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <DeleteConfirmPopup isOpen={isDeletePopupOpen} card={cardToDelete} onClose={closeAllPopups} onSubmit={handleCardDelete} loading={isLoading} />
         </div>
-      </Switch>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    </Switch>
   );
 }
 
