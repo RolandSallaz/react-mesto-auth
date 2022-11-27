@@ -1,7 +1,7 @@
 import { Route, Switch, useHistory } from "react-router";
 import { useState, useEffect } from "react";
 import api from "../../utils/Api";
-import apiAuth from "../../utils/ApiAuth";
+import {apiAuth} from "../../utils/ApiAuth";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Main from "../Main/Main";
@@ -124,7 +124,7 @@ function App() {
   }
   const handleLogin = ({ email, pass }) => {
     apiAuth
-      .loginIn({ email, pass }).then((res) => {
+      .loginIn({ email, password:pass }).then((res) => {
         localStorage.setItem('jwt', res.token);
         setLoggedIn(true);
         history.push('/');
@@ -148,7 +148,8 @@ function App() {
     setAuthMessage('');
   };
   useEffect(() => {
-    api.getUserInfo()
+    const token = localStorage.getItem('jwt')
+    apiAuth.getUser(token)
       .then(res => {
         setLoggedIn(true);
         history.push('/');
@@ -158,7 +159,6 @@ function App() {
         if (err.statusCode === 401) {
           history.push('/sign-in');
         }
-
       });
   }, [history]);
   useEffect(() => {

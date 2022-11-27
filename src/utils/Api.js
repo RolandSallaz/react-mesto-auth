@@ -9,8 +9,7 @@ class Api {
         return response.ok ? response.json() : Promise.reject(response.status);
     }
     getUserInfo() {
-        return fetch(`${this._url}users/me`, {
-            credentials: 'include',
+        return fetch(`${this._url}/users/me`, {
             headers: this._headers
         })
             .then(res => {
@@ -18,8 +17,7 @@ class Api {
             })
     }
     setUserInfo(newName, newInfo) {
-        return fetch(`${this._url}users/me`, {
-            credentials: 'include',
+        return fetch(`${this._url}/users/me`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({ name: newName, about: newInfo })
@@ -28,17 +26,15 @@ class Api {
         });
     }
     getCards() {
-        return fetch(`${this._url}cards`, {
-            credentials: 'include',
+        return fetch(`${this._url}/cards`, {
             headers: this._headers
         }).then(res => {
             return this._checkResponse(res);
         });
     }
     sendCard(name, link) {
-        return fetch(`${this._url}cards`, {
+        return fetch(`${this._url}/cards`, {
             method: "POST",
-            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({ name, link })
         }).then(res => {
@@ -46,8 +42,7 @@ class Api {
         });
     }
     deleteCard(id) {
-        return fetch(`${this._url}cards/${id}`, {
-            credentials: 'include',
+        return fetch(`${this._url}/cards/${id}`, {
             method: "DELETE",
             headers: this._headers,
         }).then(res => {
@@ -55,8 +50,7 @@ class Api {
         });
     }
     changeLikeCardStatus(id, prop) {
-        return fetch(`${this._url}cards/${id}/likes`, {
-            credentials: 'include',
+        return fetch(`${this._url}/cards/${id}/likes`, {
             method: prop,
             headers: this._headers,
         }).then(res => {
@@ -65,8 +59,7 @@ class Api {
     }
 
     changerAvatar(avatar) {
-        return fetch(`${this._url}users/me/avatar`, {
-            credentials: 'include',
+        return fetch(`${this._url}/users/me/avatar`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({ avatar }),
@@ -79,7 +72,8 @@ class Api {
 const api = new Api({
     url: apiUrl,
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        authorization:'6df61dab-da31-4f8e-8ce7-f211bdfa5ef2',
     }
 });
 export default api;

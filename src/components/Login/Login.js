@@ -19,7 +19,7 @@ const Login = (props) => {
                 <form id='form-auth' onSubmit={handleSumbmit}>
                     <h2 className="form-auth__heading">Вход</h2>
                     <label>
-                        <input placeholder="Email" value={email} className="form-auth__input" type="email" onChange={({ target }) => { setEmail(target.value) }} required />
+                        <input  placeholder="Email" value={email} className="form-auth__input" type="email" onChange={({ target }) => { setEmail(target.value) }} required />
                     </label>
                     <label>
                         <input placeholder="Пароль" value={pass} className="form-auth__input" type="password" onChange={({ target }) => { setPass(target.value) }} required />
