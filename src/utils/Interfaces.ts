@@ -4,6 +4,7 @@ export interface IUser {
   avatar: string
   cohort: string
   about: string
+  name: string
 }
 
 export interface ICard {
