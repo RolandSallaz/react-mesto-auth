@@ -1,36 +1,28 @@
-import {apiUrl} from './constants';
+import { IUser,IApiSettings } from './Interfaces';
 
-interface AuthReq {
+export interface IAuthReq {
     email: string,
     password: string
 }
 
-interface Settings {
-    url: string,
-    headers: { "Content-Type": String, authorization?: String }
-
+  export type TToken = {
+    token: string;
 }
 
 class ApiAuth {
-
     private _url: string;
-    private _headers: any
+    private _headers: {[key:string]:string}
 
-    constructor({url, headers}: Settings) {
+    constructor({url, headers}: IApiSettings) {
         this._url = url;
         this._headers = headers;
     }
 
-    #checkResponse(response: string) {
-
+    private checkResponse<T>(res: Response): Promise<T> {
+        return res.ok ? res.json() : Promise.reject(res.status);
     }
 
-    newUser({email, password}: AuthReq): Promise<{
-        data: {
-            _id: String,
-            email: String
-        }
-    }> {
+    public newUser ({email, password}: IAuthReq) {
         return fetch(`${this._url}/signup`, {
             method: "POST",
             credentials: 'include',
@@ -40,12 +32,10 @@ class ApiAuth {
                 password
             })
         })
-            .then(res => {
-                return res.ok ? res.json() : Promise.reject(res.status);
-            });
+            .then(this.checkResponse);
     }
 
-    loginIn({email, password}: AuthReq): Promise<{ token: string }> {
+    public loginIn({email, password}: IAuthReq) {
         return fetch(`${this._url}/signin`, {
             method: "POST",
             headers:this._headers,
@@ -54,21 +44,21 @@ class ApiAuth {
                 password
             })
         })
-            .then(response => {
-                return response.ok ? response.json() : Promise.reject(response.status);
+            .then(this.checkResponse<TToken>)
+            .then(data=> {
+                localStorage.setItem('jwt', data.token);
+                return data
             })
     }
 
-    getUser(token: string): Promise<{ _id: String, email: String }> {
+    public getUser(token: string) {
         return fetch(`${this._url}/users/me`, {
             method: "GET",
             headers: {
                 ...this._headers,
                 "Authorization": `Bearer ${token}`
             },
-        }).then((response) => {
-            return response.ok ? response.json() : Promise.reject(response.status);
-        });
+        }).then(this.checkResponse<{data:{email:String,_id:String}}>);
     }
 }
 
@@ -78,3 +68,6 @@ export const apiAuth = new ApiAuth({
         "Content-Type": "application/json",
     }
 });
+
+
+

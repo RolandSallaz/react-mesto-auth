@@ -1,71 +1,61 @@
 import { apiUrl } from "./constants";
+import { IUser,IApiSettings, ICard, IUserInfo, IPlace } from './Interfaces';
+
 class Api {
-    constructor(config) {
-        this._url = config.url;
-        this._headers = config.headers;
-        this._checkResponse = this._checkResponse.bind(this);
+    private _url: string;
+    private _headers: {[key:string]:string}
+
+    constructor({url,headers}:IApiSettings) {
+        this._url = url;
+        this._headers = headers;
     }
-    _checkResponse(response) {
-        return response.ok ? response.json() : Promise.reject(response.status);
+    private checkResponse<T>(res: Response): Promise<T> {
+        return res.ok ? res.json() : Promise.reject(res.status);
     }
     getUserInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers
         })
-            .then(res => {
-                return this._checkResponse(res);
-            })
+            .then(this.checkResponse<IUser>)
     }
-    setUserInfo(newName, newInfo) {
+    setUserInfo({name,about}:IUserInfo) {
         return fetch(`${this._url}/users/me`, {
             method: "PATCH",
             headers: this._headers,
-            body: JSON.stringify({ name: newName, about: newInfo })
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+            body: JSON.stringify({ name, about })
+        }).then(this.checkResponse<IUser>);
     }
     getCards() {
         return fetch(`${this._url}/cards`, {
             headers: this._headers
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        }).then(this.checkResponse<ICard[]>);
     }
-    sendCard(name, link) {
+    sendCard({name,link}:IPlace) {
         return fetch(`${this._url}/cards`, {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify({ name, link })
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        }).then(this.checkResponse<ICard>);
     }
-    deleteCard(id) {
+    deleteCard(id:string) {
         return fetch(`${this._url}/cards/${id}`, {
             method: "DELETE",
             headers: this._headers,
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        }).then(this.checkResponse<ICard[]>);
     }
-    changeLikeCardStatus(id, prop) {
+    changeLikeCardStatus(id:string, prop: 'DELETE' | 'PUT') {
         return fetch(`${this._url}/cards/${id}/likes`, {
             method: prop,
             headers: this._headers,
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        }).then(this.checkResponse<ICard>);
     }
 
-    changerAvatar(avatar) {
+    changerAvatar(avatar:String) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({ avatar }),
-        }).then(res => {
-            return this._checkResponse(res);
-        });
+        }).then(this.checkResponse<IUser>);
     }
 }
 
@@ -76,4 +66,5 @@ const api = new Api({
         authorization:'6df61dab-da31-4f8e-8ce7-f211bdfa5ef2',
     }
 });
+
 export default api;
