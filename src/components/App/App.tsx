@@ -17,6 +17,7 @@ import DeleteConfirmPopup from '../DeleteConfirmPopup/DeleteConfirmPopup'
 import InfoTooltip from '../InfoTooltip/InfoTooltip'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import {IUser, ICard, IUserInfo, IPlace} from '../../utils/Interfaces'
+import { mainPage } from '../../utils/constants'
 
 type InfoToolTip = {
     opened: boolean
@@ -157,7 +158,7 @@ function App() {
             .then((res) => {
                 localStorage.setItem('jwt', res.token)
                 setLoggedIn(true)
-                navigate('/')
+                navigate(mainPage)
                 setUserEmail(email)
             })
             .catch(() =>
@@ -189,7 +190,7 @@ function App() {
                 .getUser(token)
                 .then((res) => {
                     setLoggedIn(true)
-                    navigate('/')
+                    navigate(mainPage)
                     setUserEmail(res.data.email)
                 })
                 .catch(() => navigate('/sign-in'))
@@ -217,7 +218,7 @@ function App() {
             <div className="page">
                 <Routes>
                     <Route
-                        path="/"
+                        path={mainPage}
                         element={
                             <ProtectedRoute loggedIn={loggedIn}>
                                 <Main
@@ -239,7 +240,7 @@ function App() {
                         path="/sign-up"
                         element={<Register onSubmit={handleRegistration}/>}
                     />
-                    <Route path='*' element={<Navigate to={loggedIn ? '/' : '/sign-in'}/>} />
+                    <Route path='*' element={<Navigate to={loggedIn ? mainPage : '/sign-in'}/>} />
                 </Routes>
                 <Footer/>
                 <InfoTooltip
